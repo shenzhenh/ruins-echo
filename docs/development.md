@@ -4,20 +4,21 @@
 
 | 工具 | 版本 |
 | --- | --- |
-| Unity | **2022.3.62f1**（任意 2022.3 LTS 可打开，但 CI 固定该版本） |
-| 脚本运行时 | .NET Standard 2.1（Unity 默认） |
+| 引擎（推荐） | **团结引擎 Tuanjie 1.10.4**（基于 Unity 2022.3.62t16） |
+| 对照 / CI 引擎 | Unity 2022.3.62f1（国际版；仅用于可选的 game-ci 工作流） |
+| 脚本运行时 | .NET Standard 2.1（引擎默认） |
 | IDE | Rider / Visual Studio 2022 / VS Code（推荐 Rider） |
 | Git | 2.40+ |
 | 平台 | Windows 10/11（MVP 目标平台） |
 
-不需要安装任何第三方包；`Packages/manifest.json` 只使用 Unity 官方包与内置模块。
+不需要安装任何第三方包；`Packages/manifest.json` 只使用 Unity 官方包与内置模块。Tuanjie 1.10 以 Unity 2022 LTS 为基础，现有 API / 包按 Unity 2022.3 的用法即可。
 
 ---
 
 ## 2. 首次打开
 
-1. Unity Hub → Add project → 选择 `ruins-echo/`。
-2. 用 2022.3 打开，等待 Package Manager 解析与脚本编译。
+1. Tuanjie Hub → 添加项目 → 选择 `ruins-echo/`。
+2. 用 **团结引擎 1.10.4（2022.3.62t16）** 打开，等待 Package Manager 解析与脚本编译。
 3. 打开 `Window → General → Test Runner`，跑一遍 **EditMode** 测试。
 4. 可选：`Tools → Ruins Echo → Create Main Scene` 生成 `Assets/Scenes/Main.unity` 并加入 Build Settings。
 5. 按 **Play**。如果当前是空场景，`EchoLabBootstrap` 会自动搭建灰盒场景。
@@ -42,12 +43,14 @@
 
 `Window → General → Test Runner → EditMode → Run All`
 
-测试程序集：`Assets/RuinsEcho/Tests/EditMode/RuinsEcho.Tests.EditMode.asmdef`，引用 `RuinsEcho.Runtime` 与 `TestAssemblies`。
+测试程序集：`Assets/RuinsEcho/Tests/EditMode/RuinsEcho.Tests.EditMode.asmdef`，引用 `RuinsEcho.Runtime`、`UnityEngine.TestRunner`、`UnityEditor.TestRunner`，定义约束 `UNITY_INCLUDE_TESTS`。
 
-### 命令行（需要 Unity 2022.3.62f1）
+### 命令行（Tuanjie 1.10.4）
 
 ```powershell
-& "C:\Program Files\Unity\Hub\Editor\2022.3.62f1\Editor\Unity.exe" `
+$editor = "C:\Program Files\Tuanjie\Hub\Editor\2022.3.62t16\Editor\Tuanjie.exe"
+# 如果安装在其他盘，请换成实际路径；可执行文件名也可能是 Tuanjie.exe
+& $editor `
   -batchmode -nographics `
   -projectPath "D:\DeepseekWorkspace\ruins-echo" `
   -runTests -testPlatform EditMode `
@@ -56,7 +59,7 @@
   -quit
 ```
 
-退出码 `0` 表示测试进程成功；具体用例结果看 XML / log。`TestResults/` 已在 `.gitignore` 中忽略。
+Tuanjie 基于 Unity 2022.3，测试参数与 Unity 一致。退出码 `0` 表示测试进程成功；具体用例结果看 XML / log。`TestResults/` 已在 `.gitignore` 中忽略。
 
 ### 当前覆盖
 
@@ -154,9 +157,11 @@ feat(recording): 增加回放反向游标
 Unity 场景 / Prefab 是 YAML，直接合并容易冲突。Windows 下配置：
 
 ```powershell
+# 把 <TUANJIE_EDITOR> 换成实际安装目录，例如：
+# C:/Program Files/Tuanjie/Hub/Editor/2022.3.62t16/Editor
 git config merge.tool unityyamlmerge
 git config mergetool.unityyamlmerge.trustExitCode false
-git config mergetool.unityyamlmerge.cmd '"C:/Program Files/Unity/Hub/Editor/2022.3.62f1/Editor/Data/Tools/UnityYAMLMerge.exe" merge -p "$BASE" "$REMOTE" "$LOCAL" "$MERGED"'
+git config mergetool.unityyamlmerge.cmd '"<TUANJIE_EDITOR>/Data/Tools/UnityYAMLMerge.exe" merge -p "$BASE" "$REMOTE" "$LOCAL" "$MERGED"'
 ```
 
 冲突时执行 `git mergetool`。`.gitattributes` 已把 `*.unity / *.prefab / *.asset` 指向 `unityyamlmerge`。
@@ -176,9 +181,9 @@ git config mergetool.unityyamlmerge.cmd '"C:/Program Files/Unity/Hub/Editor/2022
 - 校验 `.cs` 都有 `.meta`
 - 校验没有把 `Library/`、`Temp/` 等生成目录提交进仓库
 
-### Unity EditMode 测试（可选）
+### Unity EditMode 测试（可选，国际版 Unity）
 
-`.github/workflows/unity-editmode.yml` 默认跳过。启用步骤：
+`.github/workflows/unity-editmode.yml` 默认跳过，使用 game-ci 的 **Unity 2022.3.62f1**（国际版）镜像；团结引擎无法直接跑在 game-ci 的 Unity 镜像里，因此 Tuanjie 用户以本地 Test Runner 为准。启用步骤：
 
 1. 按 [game-ci 文档](https://game.ci/docs/github/activation) 激活 Unity 许可证。
 2. 在 GitHub 仓库 `Settings → Secrets and variables → Actions` 添加：

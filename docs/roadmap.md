@@ -12,15 +12,15 @@
 
 目标：让任何人都能克隆、打开、编译、跑测试、提交。
 
-- [x] Unity 2022.3.62f1 工程骨架（`Assets / Packages / ProjectSettings`）
+- [x] 团结引擎 Tuanjie 1.10.4 / Unity 2022.3.62t16 工程骨架（`Assets / Packages / ProjectSettings`）
 - [x] Assembly Definition：Runtime / Editor / Tests 三层
 - [x] `.gitignore`（Unity 生成目录）、`.gitattributes`（YAML 合并）
 - [x] 目录结构与命名空间约定
 - [x] README / 架构 / 开发指南 / 实现状态 / ADR
 - [x] GitHub Actions：仓库结构校验 + 可选 Unity EditMode 测试
 - [x] Issue / PR 模板
-- [ ] 在 Unity 2022 中首次导入并提交 Unity 生成的 `.meta`（首次打开后执行）
-- [ ] 在 Unity 2022 中跑通全部 EditMode 测试（当前环境无 2022 编辑器）
+- [ ] 在 Tuanjie 1.10.4 中首次导入并提交引擎生成的 `.meta`（首次打开后执行）
+- [ ] 在 Tuanjie 1.10.4 中跑通全部 EditMode 测试（当前环境仍在安装编辑器）
 
 **验收**：新机器按 README 可在 10 分钟内打开工程；Test Runner 全绿；CI 的 validate 任务通过。
 

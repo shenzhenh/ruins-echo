@@ -3,8 +3,9 @@
 - 更新时间：2026-10-18
 - 基线：[MVP 规格](spec/遗迹回响_影子共生_单机MVP开发规格文档.md)
 - 当前阶段：M0 地基 + M1 核心链路技术切片
-- 代码验证：**已用 Unity 2021.3 引用程序集完成编译校验；尚未在 Unity 2022 中运行**
-- 测试验证：EditMode 测试代码可编译；**尚未在 Unity Test Runner 中执行**
+- 项目版本：**团结引擎 Tuanjie 1.10.4 / 2022.3.62t16**（`ProjectVersion.txt`）
+- 代码验证：**已用 Unity 2021.3 引用程序集完成编译校验；尚未在 Tuanjie 1.10.4 中运行**
+- 测试验证：EditMode 测试代码可编译；**尚未在 Tuanjie Test Runner 中执行**
 
 > 本文件只描述“代码里已经存在什么”，不把“计划做”写成“已完成”。带 🟡 的条目通常意味着核心逻辑已有、表现层 / 完整流程 / 实机验证缺失。
 
@@ -37,7 +38,7 @@
 
 ### 1. 项目概述 & 设计约束 — ✅
 
-- [x] 2D 俯视角、Unity 2022 LTS、Windows、灰盒优先
+- [x] 2D 俯视角、Unity 2022 LTS 技术基线（团结引擎 1.10.4）、Windows、灰盒优先
 - [x] 局内 / 局外数据隔离（`SaveData` 与 `RunContext` 无交叉引用）
 - [x] 种子驱动（`DeterministicRandom`，ADR-0001）
 - [x] 影子禁用 Rigidbody2D 位移（代码中无 `Rigidbody2D`）
@@ -228,18 +229,19 @@
 - 运行时全部 `.cs` 通过 Roslyn 编译（引用 Unity 2021.3.39f1 的 `UnityEngine.*` 程序集），**0 error**。
 - Editor 脚本通过编译（引用 `UnityEditor.*`），**0 error**。
 - 测试全部 `.cs` 通过编译（引用 NUnit + Runtime），**0 error**。
+- 纯逻辑 headless check（RecordBuffer / PlaybackCursor / DeterministicRandom / EchoEnergy / RunStateMachine）**全部通过**。
 
-### 未完成（需要 Unity 2022）
+### 未完成（需要 Tuanjie 1.10.4）
 
-- [ ] Unity 2022.3 首次导入，确认无 API / 序列化错误
+- [ ] Tuanjie 1.10.4（2022.3.62t16）首次导入，确认无 API / 序列化错误
 - [ ] EditMode 测试实际执行并全绿
 - [ ] Play Mode 手测：移动 / 攻击 / 闪避 / 录制 / 召唤 / 遗物
 - [ ] 30 / 60 / 120 FPS 下回放误差
 - [ ] 构建 Windows 包
 
-### 为什么没有直接跑 Unity 2022
+### 为什么还没有实机跑 Tuanjie
 
-当前编写环境只安装了 Unity 2020.3 / 2021.3，没有 2022.3 编辑器。代码刻意只使用 2021.3 已有的 API，避免版本升级风险。首次在有 2022.3 的机器上打开后，请按 `docs/development.md` 执行测试并更新本节。
+编写环境此前只安装了 Unity 2020.3 / 2021.3，没有 2022.3 编辑器；项目已切换到 **Tuanjie 1.10.4（2022.3.62t16）**，等待 Tuanjie Hub 安装完成后按 `docs/development.md` 执行测试并更新本节。代码刻意只使用 Unity 2021.3 已有的 API，降低升级到 2022.3 基线的风险。
 
 ---
 

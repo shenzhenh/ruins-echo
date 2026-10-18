@@ -18,7 +18,7 @@
 
 | 模块 | 状态 |
 | --- | --- |
-| Unity 2022 LTS 工程骨架 / Assembly Definition / EditMode 测试程序集 | ✅ 已建立 |
+| Unity / Tuanjie 工程骨架 / Assembly Definition / EditMode 测试程序集 | ✅ 已建立 |
 | 3 秒滑动窗口录制（UnscaledTime） | ✅ 已实现 |
 | 影子回放游标（变速 / 循环 / 反向 / 重复时间戳） | ✅ 已实现 + 测试代码 |
 | 影子对象池 / 影子生命 / 回放攻击 | ✅ 已实现 |
@@ -27,10 +27,10 @@
 | 种子驱动的 5 层地牢数据生成 | ✅ 已实现 + 测试代码 |
 | 局外 JSON 存档 / 残片 / 解锁 | ✅ 已实现 + 测试代码 |
 | 局内状态机 | ✅ 已实现 + 测试代码 |
-| Echo Lab 灰盒技术切片（移动 / 普攻 / 闪避 / 录制 / 召唤 / 遗物三选一） | ✅ 代码已落地，待 Unity 2022 实机验证 |
+| Echo Lab 灰盒技术切片（移动 / 普攻 / 闪避 / 录制 / 召唤 / 遗物三选一） | ✅ 代码已落地，待 Tuanjie 1.10.4 实机验证 |
 | 完整 5 层房间流程 / Boss / 远程敌人 / UGUI / 正式场景与 Prefab | ⏳ 见路线图 M2–M5 |
 
-> `✅` 表示代码已落地，不等于已通过实机验收。当前编写环境没有安装 Unity 2022 编辑器，运行时代码已用 Unity 2021.3 引用程序集做过编译校验；**尚未在 Unity 2022 中实际运行**。首次打开工程后，请先执行 EditMode 测试与一次 Play 验证，见[开发指南](docs/development.md)。
+> `✅` 表示代码已落地，不等于已通过实机验收。项目已切换到 **团结引擎 1.10.4（2022.3.62t16）**；运行时代码此前用 Unity 2021.3 引用程序集做过编译校验，但**尚未在 Tuanjie 1.10.4 中实际运行**。首次打开工程后，请先执行 EditMode 测试与一次 Play 验证，见[开发指南](docs/development.md)。
 
 ---
 
@@ -38,17 +38,20 @@
 
 ### 环境
 
-- Unity Hub
-- Unity **2022.3.62f1**（或任意 2022.3 LTS；ProjectVersion 以 2022.3.62f1 为基线）
-- Windows 10/11，键盘 + 鼠标
+| 环境 | 版本 |
+| --- | --- |
+| 引擎（推荐） | **团结引擎 Tuanjie 1.10.4**（基于 Unity 2022.3.62t16） |
+| 对照 / CI 引擎 | Unity 2022.3.62f1（国际版；仅用于可选的 game-ci 工作流） |
+| 平台 | Windows 10/11，键盘 + 鼠标 |
 
 ### 打开
 
-1. Unity Hub → Add → 选择本仓库根目录 `ruins-echo/`。
-2. 用 Unity 2022.3 打开，等待首次导入与包解析。
-3. 可选：执行 `Tools → Ruins Echo → Create Main Scene`，生成 `Assets/Scenes/Main.unity` 并加入 Build Settings。
+1. 用 Tuanjie Hub 安装并打开 **团结引擎 1.10.4**（`2022.3.62t16`）。
+2. Tuanjie Hub → 添加项目 → 选择本仓库根目录 `ruins-echo/`。
+3. 等待首次导入与包解析。
+4. 可选：执行 `Tools → Ruins Echo → Create Main Scene`，生成 `Assets/Scenes/Main.unity` 并加入 Build Settings。
    - 也可以直接在当前空场景按 **Play**：`EchoLabBootstrap` 会通过 `RuntimeInitializeOnLoadMethod` 自动搭建灰盒场景。
-4. 按 **Play**。
+5. 按 **Play**。
 
 ### 技术切片操作
 
@@ -140,7 +143,7 @@ Unity 菜单：`Window → General → Test Runner → EditMode → Run All`。
 - 存档：JSON 往返、损坏回退、默认解锁
 - 状态机：合法 / 非法转换、死亡、RunContext 失效
 
-CI 配置见 `.github/workflows/`；Unity 测试任务默认跳过，需在仓库 Variables 中设置 `UNITY_CI_ENABLED=true` 并配置 `UNITY_LICENSE` secret。详见[开发指南](docs/development.md)。
+CI 配置见 `.github/workflows/`；Unity 测试任务默认跳过（game-ci 使用国际版 Unity，Tuanjie 用户以本地 Test Runner 为准）。详见[开发指南](docs/development.md)。
 
 ---
 
