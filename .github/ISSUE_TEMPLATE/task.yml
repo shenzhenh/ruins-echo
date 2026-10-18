@@ -1,0 +1,47 @@
+name: 开发任务
+description: 一个可实现、可验收的开发任务
+title: "[Task] "
+labels: ["task"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请尽量对应到规格章节或路线图里程碑；一个 Issue 只做一件事。
+  - type: textarea
+    id: goal
+    attributes:
+      label: 目标
+      description: 完成后玩家 / 开发者能观察到什么？
+      placeholder: 例如：Boss 一阶段开启扭曲力场，影子回放速度变为 50%。
+    validations:
+      required: true
+  - type: input
+    id: spec
+    attributes:
+      label: 规格 / 路线图对应
+      placeholder: 规格 8.3；路线图 M2
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 验收标准
+      description: 可测试、可观察的条目。
+      placeholder: |
+        - [ ] ...
+        - [ ] EditMode 测试覆盖 ...
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: 实现提示 / 风险
+      description: 相关文件、约束、需要避免的坑。
+      placeholder: 不要给影子加 Rigidbody2D；时间戳使用 UnscaledTime。
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: 硬约束确认
+      options:
+        - label: 不破坏局内 / 局外数据隔离
+        - label: 影子回放不使用 Rigidbody2D 驱动位移
+        - label: 录制 / 回放时间戳使用 UnscaledTime
+        - label: 随机生成使用 DeterministicRandom

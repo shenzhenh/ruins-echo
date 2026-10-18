@@ -1,0 +1,36 @@
+# Unity YAML merge support.
+# Requires the UnityYAMLMerge tool to be configured locally, see docs/development.md.
+* text=auto
+
+*.cs        text diff=csharp
+*.shader    text
+*.hlsl      text
+*.cginc     text
+*.json      text
+*.md        text
+*.txt       text
+*.asmdef    text
+*.meta      text eol=lf
+
+*.unity     text merge=unityyamlmerge eol=lf
+*.prefab    text merge=unityyamlmerge eol=lf
+*.asset     text merge=unityyamlmerge eol=lf
+*.mat       text merge=unityyamlmerge eol=lf
+*.anim      text merge=unityyamlmerge eol=lf
+*.controller text merge=unityyamlmerge eol=lf
+
+# Binary art/audio. LFS is intentionally not required for the code-only MVP;
+# enable it before committing large source art.
+*.png       binary
+*.jpg       binary
+*.jpeg      binary
+*.psd       binary
+*.tga       binary
+*.tif       binary
+*.tiff      binary
+*.exr       binary
+*.fbx       binary
+*.wav       binary
+*.mp3       binary
+*.ogg       binary
+*.dll       binary

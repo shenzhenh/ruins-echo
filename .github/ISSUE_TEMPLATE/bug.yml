@@ -1,0 +1,51 @@
+name: Bug 报告
+description: 可复现的运行时 / 构建 / 测试问题
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: 现象
+      description: 实际发生了什么？预期是什么？
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      placeholder: |
+        1. 打开 ...
+        2. 按 ...
+        3. 观察 ...
+    validations:
+      required: true
+  - type: input
+    id: unity
+    attributes:
+      label: Unity 版本
+      placeholder: 2022.3.62f1
+  - type: input
+    id: commit
+    attributes:
+      label: 提交 / 分支
+      placeholder: main @ abc1234
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志 / 截图
+      description: Console 报错、Test Runner 结果、截图或 GIF。
+      render: text
+  - type: dropdown
+    id: area
+    attributes:
+      label: 模块
+      options:
+        - Recording / Shadow
+        - Player / Combat
+        - Relics
+        - Dungeon
+        - Save
+        - UI
+        - Build / CI
+        - Other
